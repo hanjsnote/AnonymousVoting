@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>투표 결과</title></head>
+<body>
+<h2>현재 투표 현황</h2>
+<ul>
+    <li>데일리 스크럼 작성 O: <span th:text="${votes['찬성']}"></span> 표</li>
+    <li>데일리 스크럼 작성 X: <span th:text="${votes['반대']}"></span> 표</li>
+</ul>
+<!--<a href="/vote">다시 투표하기</a>-->
+</body>
+</html>
