@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,22 +27,22 @@ public class VoteController {
 
 
     @PostMapping("/vote")
-    public String submitVote(@RequestParam String choice, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String submitVote(@RequestParam String choice, Model model, HttpSession session) {
 
+        // 이미 투표한 사용자면 결과 페이지로 바로 이동
         if (session.getAttribute("voted") != null) {
-            redirectAttributes.addFlashAttribute("message", "이미 투표하셨습니다!");
-            return "redirect:/voteResult";
+            model.addAttribute("message", "이미 투표하셨습니다!");
+            model.addAttribute("votes", voteCount);
+            return "voteResult";
         }
 
+        // 투표 로직 수행
         voteCount.put(choice, voteCount.get(choice) + 1);
+
+        // 투표한 것으로 세션에 기록
         session.setAttribute("voted", true);
 
-        redirectAttributes.addFlashAttribute("votes", voteCount);
-        return "redirect:/voteResult";
-    }
-
-    @GetMapping("/voteResult")
-    public String showResult(Model model) {
-        return "voteResult";  // voteResult.html 렌더링
+        model.addAttribute("votes", voteCount);
+        return "voteResult";
     }
 }
