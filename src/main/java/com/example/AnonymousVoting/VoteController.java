@@ -28,7 +28,6 @@ public class VoteController {
 
     @PostMapping("/vote")
     public String submitVote(@RequestParam String choice, Model model, HttpSession session) {
-        int totalVotes = voteCount.values().stream().mapToInt(Integer::intValue).sum(); //투표인원 카운트
 
         // 이미 투표한 사용자면 결과 페이지로 바로 이동
         if (session.getAttribute("voted") != null) {
@@ -43,7 +42,9 @@ public class VoteController {
         // 투표한 것으로 세션에 기록
         session.setAttribute("voted", true);
 
+        int totalVotes = voteCount.values().stream().mapToInt(Integer::intValue).sum();//투표인원 카운트
         model.addAttribute("votes", voteCount);
+        model.addAttribute("totalVotes", totalVotes);
         return "voteResult";
     }
 }
