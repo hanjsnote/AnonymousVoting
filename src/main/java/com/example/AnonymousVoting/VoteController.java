@@ -42,9 +42,7 @@ public class VoteController {
         // 투표한 것으로 세션에 기록
         session.setAttribute("voted", true);
 
-        int totalVotes = voteCount.values().stream().mapToInt(Integer::intValue).sum();//투표인원 카운트
         model.addAttribute("votes", voteCount);
-        model.addAttribute("totalVotes", totalVotes);
         return "voteResult";
     }
 }
