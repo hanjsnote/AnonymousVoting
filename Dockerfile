@@ -2,7 +2,7 @@
 FROM gradle:7.6.0-jdk17 AS build
 COPY --chown=gradle:gradle . /home/gradle/project
 WORKDIR /home/gradle/project
-RUN gradle build --no-daemon
+RUN ./gradlew build --no-daemon
 
 # 2단계: 실행 전용 경량 이미지
 FROM eclipse-temurin:17-jdk-jammy
