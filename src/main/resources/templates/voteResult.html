@@ -7,6 +7,10 @@
     <li>데일리 스크럼 작성 O: <span th:text="${votes['찬성']}"></span> 표</li>
     <li>데일리 스크럼 작성 X: <span th:text="${votes['반대']}"></span> 표</li>
 </ul>
+<p>총 <strong th:text="${totalVotes}">0</strong>명이 투표했습니다.</p>
+<p th:if="${message}" style="color:darkgreen;">
+    [[${message}]]
+</p>
 <!--<a href="/vote">다시 투표하기</a>-->
 </body>
 </html>
